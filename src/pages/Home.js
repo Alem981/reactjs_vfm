@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Home() {
-  const[users,setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     loadUsers();
     loadDrivers();
-  },[]);
-  const loadUsers = async () =>{
-    const result = await axios.get("http://localhost:8080/users")
+  }, []);
+  const loadUsers = async () => {
+    const result = await axios.get("http://localhost:8080/users");
     setUsers(result.data);
-  }
-  const[drivers,setDrivers] = useState([])
-  const loadDrivers = async () =>{
-    const result = await axios.get("http://localhost:8080/drivers")
+  };
+  const [drivers, setDrivers] = useState([]);
+  const loadDrivers = async () => {
+    const result = await axios.get("http://localhost:8080/drivers");
     setDrivers(result.data);
-  }
+  };
   return (
     <div className="container">
       <div className="py-4">
+        <h2>Users</h2>
         <table className="table border shadow">
           <thead>
             <tr>
@@ -30,21 +31,29 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {
-              users.map((user,index)=>(
+            {users.map((user, index) => (
               <tr key={user.id}>
-                <th scope="row" key={index}>{index +1}</th>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
                 <td>{user.name}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
+                <td>
+                  <button className="btn btn-primary mx-2"> View</button>
+                  <button className="btn btn-outline-primary mx-2">
+                    {" "}
+                    Edit
+                  </button>
+                  <button className="btn btn-danger mx-2"> Delete</button>
+                </td>
               </tr>
-              ))
-            }
-                       
+            ))}
           </tbody>
         </table>
-        <br /><br />
-
+        <br />
+        <br />
+        <h2>Drivers</h2>
         <table className="table border shadow">
           <thead>
             <tr>
@@ -59,24 +68,29 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {
-              drivers.map((driver,index)=>(
+            {drivers.map((driver, index) => (
               <tr key={driver.id}>
-                <th scope="row" key={index}>{index +1}</th>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
                 <td>{driver.firstName}</td>
                 <td>{driver.lastName}</td>
                 <td>{driver.email}</td>
                 <td>{driver.phoneNumber}</td>
                 <td>{driver.age}</td>
                 <td>{driver.salary}</td>
+                <td>
+                  <button className="btn btn-primary mx-2"> View</button>
+                  <button className="btn btn-outline-primary mx-2">
+                    {" "}
+                    Edit
+                  </button>
+                  <button className="btn btn-danger mx-2"> Delete</button>
+                </td>
               </tr>
-              ))
-            }
-                       
+            ))}
           </tbody>
         </table>
-
-
       </div>
     </div>
   );
