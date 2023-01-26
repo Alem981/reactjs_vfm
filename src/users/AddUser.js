@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Constants from "../utilities/Constants";
 
 export default function AddUser() {
+  const apiGetUserByIdEndPoint = Constants.API_URL_GET_USER_BY_ID;
+
     let navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -15,7 +18,7 @@ export default function AddUser() {
   }
   const onSubmit = async(e)=>{
 e.preventDefault();
-await axios.post("http://localhost:8080/user", user);
+await axios.post(apiGetUserByIdEndPoint, user);
 navigate("/")
 
   }

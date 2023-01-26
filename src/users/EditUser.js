@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams, } from "react-router-dom";
+import Constants from "../utilities/Constants";
 
 export default function AddUser() {
+  const apiGetUserByIdEndPoint = Constants.API_URL_GET_USER_BY_ID;
+
     let navigate = useNavigate();
     const {id} = useParams();
   const [user, setUser] = useState({
@@ -19,11 +22,11 @@ export default function AddUser() {
   }, []);
   const onSubmit = async(e)=>{
 e.preventDefault();
-await axios.put(`http://localhost:8080/user/${id}`, user);
+await axios.put(apiGetUserByIdEndPoint+`/${id}`, user);
 navigate("/");
   };
   const loadUser=async()=>{
-    const result =await axios.get(`http://localhost:8080/user/${id}`);
+    const result =await axios.get(apiGetUserByIdEndPoint+`/${id}`);
     setUser(result.data);
   }
   return (

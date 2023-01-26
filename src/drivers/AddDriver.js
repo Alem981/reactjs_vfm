@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import Constants from '../utilities/Constants';
 
 export default function AddDriver() {
+const apiGetDriverByIdEndPoint = Constants.API_URL_GET_DRIVER_BY_ID;
+
   let navigate = useNavigate();
   const [driver, setDriver] = useState({
     firstName: "",
@@ -18,7 +21,7 @@ export default function AddDriver() {
   }
   const onSubmit = async(e)=>{
 e.preventDefault();
-await axios.post("http://localhost:8080/driver", driver);
+await axios.post(apiGetDriverByIdEndPoint, driver);
 navigate("/")
 
   }

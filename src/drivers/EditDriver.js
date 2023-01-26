@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Constants from '../utilities/Constants';
 
 export default function EditUser() {
+  const apiGetDriverByIdEndPoint = Constants.API_URL_GET_DRIVER_BY_ID;
+
   let navigate = useNavigate();
   const {id} = useParams();
   const [driver, setDriver] = useState({
@@ -22,11 +25,11 @@ export default function EditUser() {
   }, []);
   const onSubmit = async(e)=>{
 e.preventDefault();
-await axios.put(`http://localhost:8080/driver/${id}`, driver);
+await axios.put(apiGetDriverByIdEndPoint+`/${id}`, driver);
 navigate("/")
   }
   const loadDriver = async ()=>{
-    const result = await axios.get(`http://localhost:8080/driver/${id}`);
+    const result = await axios.get(apiGetDriverByIdEndPoint+`${id}`);
     setDriver(result.data);
 }
   return (

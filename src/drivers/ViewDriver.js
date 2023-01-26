@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Constants from "../utilities/Constants";
 
 export default function ViewDriver() {
+  const apiGetDriverByIdEndPoint = Constants.API_URL_GET_DRIVER_BY_ID;
+
   const [driver, setDriver] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +19,7 @@ export default function ViewDriver() {
     loadDriver();
   }, []);
   const loadDriver = async () => {
-    const result = await axios.get(`http://localhost:8080/driver/${id}`);
+    const result = await axios.get(apiGetDriverByIdEndPoint+`/${id}`);
     setDriver(result.data);
   };
   return (
@@ -26,7 +29,7 @@ export default function ViewDriver() {
           <h2 className="text-center m-4">User Details</h2>
           <div className="card">
             <div className="card-header">
-              Details of user id :
+              Details of user id :{driver.id}
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <b>First Name: </b>

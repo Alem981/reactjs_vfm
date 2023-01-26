@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import Constants from "../utilities/Constants";
 
 export default function Home() {
+  const apiGetUsersEndPoint = Constants.API_URL_GET_ALL_USERS;
+  const apiGetUserByIdEndPoint = Constants.API_URL_GET_USER_BY_ID;
+
+  const apiGetDriversEndPoint = Constants.API_URL_GET_ALL_DRIVERS;
+  const apiGetDriverByIdEndPoint = Constants.API_URL_GET_DRIVER_BY_ID;
+
+
   const [users, setUsers] = useState([]);
   const {id} = useParams();
   useEffect(() => {
@@ -10,20 +18,20 @@ export default function Home() {
     loadDrivers();
   }, []);
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/users");
+    const result = await axios.get(apiGetUsersEndPoint);
     setUsers(result.data);
   };
   const [drivers, setDrivers] = useState([]);
   const loadDrivers = async () => {
-    const result = await axios.get("http://localhost:8080/drivers");
+    const result = await axios.get(apiGetDriversEndPoint);
     setDrivers(result.data);
   };
   const deleteDriver = async (id) => {
-    await axios.delete(`http://localhost:8080/driver/${id}`);
+    await axios.delete(apiGetDriverByIdEndPoint+`/${id}`);
     loadDrivers();
   }
   const deleteUser = async (id) => {
-    await axios.delete(`http://localhost:8080/user/${id}`);
+    await axios.delete(apiGetUserByIdEndPoint+`/${id}`);
     loadUsers();
   }
   return (

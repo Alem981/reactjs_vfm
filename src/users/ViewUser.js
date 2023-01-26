@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Constants from "../utilities/Constants";
 
 export default function ViewUser() {
+  const apiGetUserByIdEndPoint = Constants.API_URL_GET_USER_BY_ID;
+
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -13,7 +16,7 @@ export default function ViewUser() {
     loadUser();
   }, []);
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/user/${id}`);
+    const result = await axios.get(apiGetUserByIdEndPoint+`/${id}`);
     setUser(result.data);
   };
   return (
