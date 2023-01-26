@@ -2,19 +2,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-export default function ViewUser() {
-  const [user, setUser] = useState({
-    name: "",
-    username: "",
+export default function ViewDriver() {
+  const [driver, setDriver] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
+    phoneNumber: "",
+    Age: "",
+    Salary: "",
   });
   const { id } = useParams();
   useEffect(() => {
-    loadUser();
+    loadDriver();
   }, []);
-  const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/user/${id}`);
-    setUser(result.data);
+  const loadDriver = async () => {
+    const result = await axios.get(`http://localhost:8080/driver/${id}`);
+    setDriver(result.data);
   };
   return (
     <div className="container">
@@ -26,15 +29,27 @@ export default function ViewUser() {
               Details of user id :
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  <b>Name: </b>
-                  {user.name}
+                  <b>First Name: </b>
+                  {driver.firstName}
                 </li>
                 <li className="list-group-item">
-                  <b>UserName: </b>{user.username}
+                  <b>Last Name: </b>{driver.lastName}
                 </li>
                 <li className="list-group-item">
-                  <b>E-mail:</b> {user.email}
+                  <b>E-mail:</b> {driver.email}
                   </li>
+
+                  <li className="list-group-item">
+                  <b>Phone Number:</b> {driver.phoneNumber}
+                  </li>
+
+                  <li className="list-group-item">
+                  <b>Age:</b> {driver.age}
+                  </li>
+                  <li className="list-group-item">
+                  <b>Salary $:</b> {driver.salary}
+                  </li>
+                   
               </ul>
             </div>
           </div>

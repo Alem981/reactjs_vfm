@@ -7,6 +7,8 @@ import Edituser from './users/EditUser';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AddDriver from './drivers/AddDriver';
 import EditDriver from './drivers/EditDriver';
+import ViewUser from './users/ViewUser';
+import ViewDriver from './drivers/ViewDriver';
 function App() {
   return (
     <div className="App">
@@ -16,8 +18,12 @@ function App() {
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/adduser" element={<AddUser />}></Route>
         <Route exact path="/edituser/:id" element={<Edituser />}></Route>
+        <Route exact path="/view-user/:id" element={<ViewUser />}></Route>      
+
         <Route exact path="/add-driver" element={<AddDriver />}></Route>
         <Route exact path="/edit-driver/:id" element={<EditDriver />}></Route>      
+        <Route exact path="/view-driver/:id" element={<ViewDriver />}></Route>      
+
       </Routes>
       
 

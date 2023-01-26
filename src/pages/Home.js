@@ -50,7 +50,7 @@ export default function Home() {
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button className="btn btn-primary mx-2"> View</button>
+                  <Link to={`/view-user/${user.id}`}  className="btn btn-primary mx-2"> View User</Link>
                   <Link to={`/edituser/${user.id}`} className="btn btn-outline-primary mx-2">
                 
                 Edit
@@ -75,7 +75,7 @@ export default function Home() {
               <th scope="col">Email</th>
               <th scope="col">Phone Number</th>
               <th scope="col">Age</th>
-              <th scope="col">Salary</th>
+              <th scope="col">Salary $</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -92,7 +92,8 @@ export default function Home() {
                 <td>{driver.age}</td>
                 <td>{driver.salary}</td>
                 <td>
-                  <button className="btn btn-primary mx-2"> View</button>
+                <Link to={`/view-driver/${driver.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+
                   <Link to={`/edit-driver/${driver.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
