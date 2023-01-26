@@ -6,6 +6,7 @@ import AddUser from './users/AddUser'
 import Edituser from './users/EditUser';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import AddDriver from './drivers/AddDriver';
+import EditDriver from './drivers/EditDriver';
 function App() {
   return (
     <div className="App">
@@ -16,8 +17,7 @@ function App() {
         <Route exact path="/adduser" element={<AddUser />}></Route>
         <Route exact path="/edituser/:id" element={<Edituser />}></Route>
         <Route exact path="/add-driver" element={<AddDriver />}></Route>
-
-
+        <Route exact path="/edit-driver/:id" element={<EditDriver />}></Route>      
       </Routes>
       
 

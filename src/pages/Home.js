@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
+  const {id} = useParams();
   useEffect(() => {
     loadUsers();
     loadDrivers();
@@ -17,6 +18,14 @@ export default function Home() {
     const result = await axios.get("http://localhost:8080/drivers");
     setDrivers(result.data);
   };
+  const deleteDriver = async (id) => {
+    await axios.delete(`http://localhost:8080/driver/${id}`);
+    loadDrivers();
+  }
+  const deleteUser = async (id) => {
+    await axios.delete(`http://localhost:8080/user/${id}`);
+    loadUsers();
+  }
   return (
     <div className="container">
       <div className="py-4">
@@ -46,7 +55,9 @@ export default function Home() {
                 
                 Edit
               </Link>
-                  <button className="btn btn-danger mx-2"> Delete</button>
+                  <button
+                  onClick={() =>deleteUser(user.id)}
+                   className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}
@@ -82,11 +93,11 @@ export default function Home() {
                 <td>{driver.salary}</td>
                 <td>
                   <button className="btn btn-primary mx-2"> View</button>
-                  <Link to={`/edituser/${driver.id}`} className="btn btn-outline-primary mx-2">
+                  <Link to={`/edit-driver/${driver.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
                   </Link>
-                  <button className="btn btn-danger mx-2"> Delete</button>
+                  <button onClick={()=>deleteDriver(driver.id)} className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}

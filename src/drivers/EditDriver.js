@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-export default function AddDriver() {
+export default function EditUser() {
   let navigate = useNavigate();
+  const {id} = useParams();
   const [driver, setDriver] = useState({
     firstName: "",
     lastName: "",
@@ -16,17 +17,23 @@ export default function AddDriver() {
   const onInputChange =(e)=>{
     setDriver({...driver,[e.target.name]:e.target.value})
   }
+  useEffect(() => {
+    loadDriver();
+  }, []);
   const onSubmit = async(e)=>{
 e.preventDefault();
-await axios.post("http://localhost:8080/driver", driver);
+await axios.put(`http://localhost:8080/driver/${id}`, driver);
 navigate("/")
-
   }
+  const loadDriver = async ()=>{
+    const result = await axios.get(`http://localhost:8080/driver/${id}`);
+    setDriver(result.data);
+}
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">Add Driver</h2>
+          <h2 className="text-center m-4">Edit Driver</h2>
 <form onSubmit={(e)=>onSubmit(e)}>
           <div className="md-3">
             <label htmlFor="FirstName" className="form-label">
