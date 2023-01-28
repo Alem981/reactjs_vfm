@@ -16,6 +16,10 @@ export default function Home() {
   useEffect(() => {
     loadUsers();
     loadDrivers();
+    loadBrands();
+    loadModels();
+    loadVehicles();
+    loadOrders();
   }, []);
   const loadUsers = async () => {
     const result = await axios.get(apiGetUsersEndPoint);
@@ -26,6 +30,34 @@ export default function Home() {
     const result = await axios.get(apiGetDriversEndPoint);
     setDrivers(result.data);
   };
+
+  const [brands, setBrands] = useState([]);
+  const loadBrands = async () => {
+    const result = await axios.get("http://localhost:8080/brands");
+    setBrands(result.data);
+  };
+
+  const [models, setModels] = useState([]);
+  const loadModels = async () => {
+    const result = await axios.get("http://localhost:8080/models");
+    setModels(result.data);
+  };
+
+
+  const [vehicles, setVehicles] = useState([]);
+  const loadVehicles = async () => {
+    const result = await axios.get("http://localhost:8080/vehicles");
+    setVehicles(result.data);
+  };
+
+  const [orders, setOrders] = useState([]);
+  const loadOrders = async () => {
+    const result = await axios.get("http://localhost:8080/orders");
+    setOrders(result.data);
+  };
+
+
+
   const deleteDriver = async (id) => {
     await axios.delete(apiGetDriverByIdEndPoint+`/${id}`);
     loadDrivers();
@@ -112,6 +144,156 @@ export default function Home() {
             ))}
           </tbody>
         </table>
+
+        <h2>Brands</h2>
+        <table className="table border shadow">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>              
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {brands.map((brand, index) => (
+              <tr key={brand.id}>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
+                <td>{brand.name}</td>
+                
+                <td>
+                <Link to={`/view-driver/${brand.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+
+                  <Link to={`/edit-driver/${brand.id}`} className="btn btn-outline-primary mx-2">
+                
+                    Edit
+                  </Link>
+                  <button onClick={()=>deleteDriver(brand.id)} className="btn btn-danger mx-2"> Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2>Models</h2>
+        <table className="table border shadow">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Model Name</th>
+              <th scope="col">Brand Name</th>
+              <th scope="col">Actions</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            {models.map((model, index) => (
+              <tr key={model.id}>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
+                <td>{model.name}</td>
+                <td>{model.brand.name}</td>              
+                         <td>
+                <Link to={`/view-driver/${model.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+
+                  <Link to={`/edit-driver/${model.id}`} className="btn btn-outline-primary mx-2">
+                
+                    Edit
+                  </Link>
+                  <button onClick={()=>deleteDriver(model.id)} className="btn btn-danger mx-2"> Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+
+        <h2>Vehicles</h2>
+        <table className="table border shadow">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Registration</th>
+              <th scope="col">Seats</th>
+              <th scope="col">Vehicle Weight</th>
+              <th scope="col">Engine Power</th>
+              <th scope="col">Model</th>
+              <th scope="col">Brand</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicles.map((vehicle, index) => (
+              <tr key={vehicle.id}>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
+                <td>{vehicle.registration}</td>
+                <td>{vehicle.seats}</td>
+                <td>{vehicle.vehicleWeight}</td>
+                <td>{vehicle.enginPower}</td>
+                <td>{vehicle.model.name}</td>
+                <td>{vehicle.model.brand.name}</td>
+                <td>
+                <Link to={`/view-driver/${vehicle.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+
+                  <Link to={`/edit-driver/${vehicle.id}`} className="btn btn-outline-primary mx-2">
+                
+                    Edit
+                  </Link>
+                  <button onClick={()=>deleteDriver(vehicle.id)} className="btn btn-danger mx-2"> Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <h2>Orders</h2>
+        <table className="table border shadow">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Start Location</th>
+              <th scope="col">End Location</th>
+              <th scope="col">Customer</th>
+              <th scope="col">Price</th>
+              <th scope="col">Costs</th>
+              <th scope="col">Vehicle Model</th>
+              <th scope="col">Vehicle Brand</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order, index) => (
+              <tr key={order.id}>
+                <th scope="row" key={index}>
+                  {index + 1}
+                </th>
+                <td>{order.startLocation}</td>
+                <td>{order.endLocation}</td>
+                <td>{order.customer}</td>
+                <td>{order.price}</td>
+                <td>{order.cost}</td>
+                <td>{order.vehicle.model.name}</td>
+                <td>{order.vehicle.model.brand.name}</td>
+                 
+                <td>
+                <Link to={`/view-driver/${order.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+
+                  <Link to={`/edit-driver/${order.id}`} className="btn btn-outline-primary mx-2">
+                
+                    Edit
+                  </Link>
+                  <button onClick={()=>deleteDriver(order.id)} className="btn btn-danger mx-2"> Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+
       </div>
     </div>
   );
