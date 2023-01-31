@@ -13,18 +13,13 @@ export default function Home() {
 
   const [users, setUsers] = useState([]);
   const {id} = useParams();
-  useEffect(() => {
-    loadUsers();
+  useEffect(() => {   
     loadDrivers();
     loadBrands();
     loadModels();
     loadVehicles();
     loadOrders();
-  }, []);
-  const loadUsers = async () => {
-    const result = await axios.get(apiGetUsersEndPoint);
-    setUsers(result.data);
-  };
+  }, []); 
   const [drivers, setDrivers] = useState([]);
   const loadDrivers = async () => {
     const result = await axios.get(apiGetDriversEndPoint);
@@ -64,47 +59,12 @@ export default function Home() {
   }
   const deleteUser = async (id) => {
     await axios.delete(apiGetUserByIdEndPoint+`/${id}`);
-    loadUsers();
+    //loadUsers();
   }
   return (
     <div className="container">
       <div className="py-4">
-        <h2>Users</h2>
-        <table className="table border shadow">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={user.id}>
-                <th scope="row" key={index}>
-                  {index + 1}
-                </th>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>
-                  <Link to={`/view-user/${user.id}`}  className="btn btn-primary mx-2"> View User</Link>
-                  <Link to={`/edituser/${user.id}`} className="btn btn-outline-primary mx-2">
-                
-                Edit
-              </Link>
-                  <button
-                  onClick={() =>deleteUser(user.id)}
-                   className="btn btn-danger mx-2"> Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <br />
-        <br />
+        
         <h2>Drivers</h2>
         <table className="table border shadow">
           <thead>
@@ -163,9 +123,9 @@ export default function Home() {
                 <td>{brand.name}</td>
                 
                 <td>
-                <Link to={`/view-driver/${brand.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+                <Link to={`/view-brand/${brand.id}`}  className="btn btn-primary mx-2"> View brand</Link>
 
-                  <Link to={`/edit-driver/${brand.id}`} className="btn btn-outline-primary mx-2">
+                  <Link to={`/edit-brand/${brand.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
                   </Link>
@@ -196,9 +156,9 @@ export default function Home() {
                 <td>{model.name}</td>
                 <td>{model.brand.name}</td>              
                          <td>
-                <Link to={`/view-driver/${model.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+                <Link to={`/view-model/${model.id}`}  className="btn btn-primary mx-2"> View Model</Link>
 
-                  <Link to={`/edit-driver/${model.id}`} className="btn btn-outline-primary mx-2">
+                  <Link to={`/edit-model/${model.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
                   </Link>
@@ -237,9 +197,9 @@ export default function Home() {
                 <td>{vehicle.model.name}</td>
                 <td>{vehicle.model.brand.name}</td>
                 <td>
-                <Link to={`/view-driver/${vehicle.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+                <Link to={`/view-vehicle/${vehicle.id}`}  className="btn btn-primary mx-2"> View Vehicle</Link>
 
-                  <Link to={`/edit-driver/${vehicle.id}`} className="btn btn-outline-primary mx-2">
+                  <Link to={`/edit-vehicle/${vehicle.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
                   </Link>
@@ -280,9 +240,9 @@ export default function Home() {
                 <td>{order.vehicle.model.brand.name}</td>
                  
                 <td>
-                <Link to={`/view-driver/${order.id}`}  className="btn btn-primary mx-2"> View Driver</Link>
+                <Link to={`/view-order/${order.id}`}  className="btn btn-primary mx-2"> View Order</Link>
 
-                  <Link to={`/edit-driver/${order.id}`} className="btn btn-outline-primary mx-2">
+                  <Link to={`/edit-order/${order.id}`} className="btn btn-outline-primary mx-2">
                 
                     Edit
                   </Link>

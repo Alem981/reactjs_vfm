@@ -29,7 +29,7 @@ await axios.put(apiGetDriverByIdEndPoint+`/${id}`, driver);
 navigate("/")
   }
   const loadDriver = async ()=>{
-    const result = await axios.get(apiGetDriverByIdEndPoint+`${id}`);
+    const result = await axios.get(apiGetDriverByIdEndPoint+`/${id}`);
     setDriver(result.data);
 }
   return (
