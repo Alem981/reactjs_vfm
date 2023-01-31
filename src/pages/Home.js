@@ -3,16 +3,24 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import Constants from "../utilities/Constants";
 
-export default function Home() {
-  const apiGetUsersEndPoint = Constants.API_URL_GET_ALL_USERS;
-  const apiGetUserByIdEndPoint = Constants.API_URL_GET_USER_BY_ID;
+export default function Home() { 
 
   const apiGetDriversEndPoint = Constants.API_URL_GET_ALL_DRIVERS;
   const apiGetDriverByIdEndPoint = Constants.API_URL_GET_DRIVER_BY_ID;
 
+  const apiGetBrandsEndPoint = Constants.API_URL_GET_ALL_BRANDS;
+  const apiGetBrandByIdEndPoint = Constants.API_URL_GET_BRAND_BY_ID;
 
-  const [users, setUsers] = useState([]);
-  const {id} = useParams();
+  const apiGetModelsEndPoint = Constants.API_URL_GET_ALL_MODELS;
+  const apiGetModelByIdEndPoint = Constants.API_URL_GET_MODEL_BY_ID;
+
+  const apiGetVehiclesEndPoint = Constants.API_URL_GET_ALL_VEHICLES;
+  const apiGetVehicleByIdEndPoint = Constants.API_URL_GET_VEHICLE_BY_ID;
+
+  const apiGetOrdersEndPoint = Constants.API_URL_GET_ALL_ORDERS;
+  const apiGetOrderByIdEndPoint = Constants.API_URL_GET_ORDER_BY_ID;
+
+   const {id} = useParams();
   useEffect(() => {   
     loadDrivers();
     loadBrands();
@@ -28,38 +36,58 @@ export default function Home() {
 
   const [brands, setBrands] = useState([]);
   const loadBrands = async () => {
-    const result = await axios.get("http://localhost:8080/brands");
+    const result = await axios.get(apiGetBrandsEndPoint);
     setBrands(result.data);
   };
 
   const [models, setModels] = useState([]);
   const loadModels = async () => {
-    const result = await axios.get("http://localhost:8080/models");
+    const result = await axios.get(apiGetModelsEndPoint);
     setModels(result.data);
   };
 
 
   const [vehicles, setVehicles] = useState([]);
   const loadVehicles = async () => {
-    const result = await axios.get("http://localhost:8080/vehicles");
+    const result = await axios.get(apiGetVehiclesEndPoint);
     setVehicles(result.data);
   };
 
   const [orders, setOrders] = useState([]);
   const loadOrders = async () => {
-    const result = await axios.get("http://localhost:8080/orders");
+    const result = await axios.get(apiGetOrdersEndPoint);
     setOrders(result.data);
   };
-
-
 
   const deleteDriver = async (id) => {
     await axios.delete(apiGetDriverByIdEndPoint+`/${id}`);
     loadDrivers();
   }
-  const deleteUser = async (id) => {
-    await axios.delete(apiGetUserByIdEndPoint+`/${id}`);
-    //loadUsers();
+  
+    const deleteBrand = async (id) => {
+    await axios.delete(apiGetBrandByIdEndPoint+`/${id}`);
+    loadBrands(); 
+    loadModels();
+    loadVehicles();
+    loadOrders();
+  }
+
+   const deleteModel = async (id) => {
+    await axios.delete(apiGetModelByIdEndPoint+`/${id}`);   
+    loadModels();
+    loadVehicles();
+    loadOrders();
+  }
+
+   const deleteVehicle = async (id) => {
+    await axios.delete(apiGetVehicleByIdEndPoint+`/${id}`);
+    loadVehicles();  
+    loadOrders();
+  }
+
+   const deleteOrder = async (id) => {
+    await axios.delete(apiGetOrderByIdEndPoint+`/${id}`);
+    loadOrders();
   }
   return (
     <div className="container">
@@ -129,7 +157,7 @@ export default function Home() {
                 
                     Edit
                   </Link>
-                  <button onClick={()=>deleteDriver(brand.id)} className="btn btn-danger mx-2"> Delete</button>
+                  <button onClick={()=>deleteBrand(brand.id)} className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}
@@ -162,7 +190,7 @@ export default function Home() {
                 
                     Edit
                   </Link>
-                  <button onClick={()=>deleteDriver(model.id)} className="btn btn-danger mx-2"> Delete</button>
+                  <button onClick={()=>deleteModel(model.id)} className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}
@@ -203,7 +231,7 @@ export default function Home() {
                 
                     Edit
                   </Link>
-                  <button onClick={()=>deleteDriver(vehicle.id)} className="btn btn-danger mx-2"> Delete</button>
+                  <button onClick={()=>deleteVehicle(vehicle.id)} className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}
@@ -246,7 +274,7 @@ export default function Home() {
                 
                     Edit
                   </Link>
-                  <button onClick={()=>deleteDriver(order.id)} className="btn btn-danger mx-2"> Delete</button>
+                  <button onClick={()=>deleteOrder(order.id)} className="btn btn-danger mx-2"> Delete</button>
                 </td>
               </tr>
             ))}
