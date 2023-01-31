@@ -1,0 +1,12 @@
+     <select
+          name="Model"
+          className="form-control"
+          /* handleBrand */ onChange={(e) => setSearchModel(e.target.value)}
+        >
+          <option value="">--Select Brand--</option>
+          {brand.map((getBrand) => (
+            <option key={getBrand.id} value={getBrand.id}>
+              {getBrand.name}
+            </option>
+          ))}
+        </select>

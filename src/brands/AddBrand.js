@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import Constants from '../utilities/Constants';
 
 export default function AddBrand() {
-const apiGetBrandByIdEndPoint = Constants.API_URL_GET_BRAND_BY_ID;
-
+  //loading
+  const apiGetBrandByIdEndPoint = Constants.API_URL_GET_BRAND_BY_ID;
+  
   let navigate = useNavigate();
   const [brand, setBrand] = useState({
     name: "",
